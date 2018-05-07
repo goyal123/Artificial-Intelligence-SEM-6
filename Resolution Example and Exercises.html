@@ -1,0 +1,698 @@
+
+<!-- saved from url=(0047)https://www.cs.utexas.edu/users/novak/reso.html -->
+<html class="gr__cs_utexas_edu"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"> <title>Resolution Example and Exercises</title> </head>
+<body data-gr-c-s-loaded="true" style="">
+
+ 
+<h3>Resolution Example and Exercises</h3>
+<p>
+
+<a href="https://www.cs.utexas.edu/users/novak/resosol.html">Solutions to Selected Problems</a>
+</p><p>
+
+<b> Example:</b> <br>
+
+</p><p>
+Consider the following axioms:
+</p><ol>
+
+<li> All hounds howl at night.
+<p>
+</p></li><li> Anyone who has any cats will not have any mice.
+<p>
+</p></li><li> Light sleepers do not have anything which howls at night.
+<p>
+</p></li><li> John has either a cat or a hound.
+<p>
+</p></li><li> (Conclusion) If John is a light sleeper, then John does not
+have any mice.
+</li></ol>
+
+<p>
+The conclusion can be proved using Resolution as shown below.  The first
+step is to write each axiom as a well-formed formula in first-order
+predicate calculus.  The clauses written for the above axioms are shown
+below, using LS(x) for `light sleeper'.
+</p><p>
+</p><ol>
+
+<li>
+<i> &#8704; x (HOUND(x) &#8594; HOWL(x)) </i>
+<p>
+</p></li><li>
+<i> &#8704; x &#8704; y (HAVE (x,y) &#8743; CAT (y) &#8594; ¬ &#8707; z (HAVE(x,z) &#8743; MOUSE (z))) </i>
+<p>
+</p></li><li>
+<i> &#8704; x (LS(x) &#8594; ¬ &#8707; y (HAVE (x,y) &#8743; HOWL(y))) </i>
+<p>
+</p></li><li>
+<i> &#8707; x (HAVE (John,x) &#8743; (CAT(x) &#8744; HOUND(x))) </i>
+<p>
+</p></li><li>
+<i> LS(John) &#8594; ¬ &#8707; z (HAVE(John,z) &#8743; MOUSE(z)) </i>
+</li></ol>
+
+<p>
+</p><p>
+
+</p><p>
+The next step is to transform each wff into Prenex Normal Form, skolemize,
+and rewrite as clauses in conjunctive normal form; these transformations
+are shown below.
+</p><p>
+</p><ol>
+
+<li>
+<i> &#8704; x (HOUND(x) &#8594; HOWL(x)) </i> <br>
+
+<p>
+<i> ¬  HOUND(x) &#8744; HOWL(x) </i>
+</p><p>
+</p></li><li>
+<i> &#8704; x &#8704; y (HAVE (x,y) &#8743; CAT (y) &amp;rarr
+¬  &#8707; z (HAVE(x,z) &#8743; MOUSE (z))) </i> <br>
+
+<p>
+<i> &#8704; x &#8704; y (HAVE (x,y) &#8743; CAT (y) &amp;rarr
+&#8704; z ¬ (HAVE(x,z) &#8743; MOUSE (z))) </i> <br>
+
+</p><p>
+<i> &#8704; x &#8704; y &#8704; z (¬ (HAVE (x,y) &#8743; CAT (y))
+&#8744; ¬ (HAVE(x,z) &#8743; MOUSE (z))) </i> <br>
+
+</p><p>
+<i> ¬ HAVE(x,y) &#8744; ¬ CAT(y) &#8744; ¬ HAVE(x,z) &#8744; ¬ MOUSE(z) </i>
+</p><p>
+</p></li><li>
+<i> &#8704; x (LS(x) &amp;rarr
+¬ &#8707; y (HAVE (x,y) &#8743; HOWL(y))) </i> <br>
+
+<p>
+<i> &#8704; x (LS(x) &#8594; &#8704; y ¬ (HAVE (x,y) &#8743; HOWL(y))) </i> <br>
+
+</p><p>
+<i> &#8704; x &#8704; y (LS(x) &#8594; ¬ HAVE(x,y) &#8744; ¬ HOWL(y)) </i> <br>
+
+</p><p>
+<i> &#8704; x &#8704; y (¬ LS(x) &#8744; ¬ HAVE(x,y) &#8744; ¬ HOWL(y)) </i> <br>
+
+</p><p>
+<i> ¬ LS(x) &#8744; ¬ HAVE(x,y) &#8744; ¬ HOWL(y) </i>
+</p><p>
+</p></li><li>
+<i> &#8707; x (HAVE (John,x) &#8743; (CAT(x) &#8744; HOUND(x))) </i> <br>
+
+<p>
+<i> HAVE(John,a) &#8743; (CAT(a) &#8744; HOUND(a)) </i>
+</p><p>
+</p></li><li>
+<i> ¬ [LS(John) &#8594; ¬ &#8707; z (HAVE(John,z)
+&#8743; MOUSE(z))] </i> <i> (negated conclusion) </i> <br>
+
+<p>
+<i> ¬ [¬ LS (John) &#8744; ¬ &#8707; z (HAVE (John, z) &#8743; MOUSE(z))] </i> <br>
+
+</p><p>
+<i> LS(John) &#8743; &#8707; z (HAVE(John, z) &#8743; MOUSE(z))) </i> <br>
+
+</p><p>
+<i> LS(John) &#8743; HAVE(John,b) &#8743; MOUSE(b) </i>
+</p></li></ol>
+
+<p>
+The set of CNF clauses for this problem is thus as follows:
+</p><ol>
+
+<li>
+<i> ¬ HOUND(x) &#8744; HOWL(x) </i>
+<p>
+</p></li><li>
+<i> ¬ HAVE(x,y) &#8744; ¬ CAT(y) &#8744; ¬ HAVE(x,z) &#8744; ¬ MOUSE(z) </i>
+<p>
+</p></li><li>
+<i> ¬ LS(x) &#8744; ¬ HAVE(x,y) &#8744; ¬ HOWL(y) </i>
+<p>
+</p></li><li> 
+<ol>
+
+<li>
+<i> HAVE(John,a) </i>
+<p>
+</p></li><li>
+<i> CAT(a) &#8744; HOUND(a) </i>
+</li></ol>
+
+<p>
+</p></li><li> 
+<ol>
+
+<li>
+<i> LS(John) </i>
+<p>
+</p></li><li>
+<i> HAVE(John,b) </i>
+<p>
+</p></li><li>
+<i> MOUSE(b) </i>
+</li></ol>
+
+</li></ol>
+
+<p>
+Now we proceed to prove the conclusion by resolution using the above clauses.
+Each result clause is numbered; the numbers of its parent clauses are shown
+to its left.
+</p><p>
+<table>
+<tbody><tr><td>
+[1.,4.(b):] </td><td> 6. </td><td> <i> CAT(a) &#8744; HOWL(a) </i> </td></tr>
+<tr><td>
+<p>
+[2,5.(c):] </p></td><td> 7. </td><td> <i> ¬ HAVE(x,y) &#8744; ¬ CAT(y) &#8744; ¬ HAVE(x,b) </i> </td></tr>
+<tr><td>
+<p>
+[7,5.(b):] </p></td><td> 8. </td><td> <i> ¬ HAVE(John,y) &#8744; ¬ CAT(y) </i> </td></tr>
+<tr><td>
+<p>
+[6,8:] </p></td><td> 9. </td><td> <i> ¬ HAVE(John,a) &#8744; HOWL(a) </i> </td></tr>
+<tr><td>
+<p>
+[4.(a),9:] </p></td><td> 10. </td><td> <i> HOWL(a) </i> </td></tr>
+<tr><td>
+<p>
+[3,10:] </p></td><td> 11. </td><td> <i> ¬ LS(x) &#8744; ¬ HAVE(x,a) </i> </td></tr>
+<tr><td>
+<p>
+[4.(a),11:] </p></td><td> 12. </td><td> <i> ¬ LS(John) </i> </td></tr>
+<tr><td>
+<p>
+[5.(a),12:] </p></td><td> 13. </td><td> <i> &#9633; </i> </td></tr>
+<tr><td>
+</td></tr></tbody></table>
+
+</p><p>
+<b> Exercises:</b> <br>
+
+</p><p>
+<b> 1.</b> Unify (if possible) the following pairs of predicates and give the
+resulting substitutions.  <i> b </i> is a constant.
+</p><p>
+<table>
+<tbody><tr><td>
+a. </td><td> <i> P(x, f(x), z) </i> </td></tr>
+<tr><td>
+   </td><td> <i> ¬ P(g(y),f(g(b)),y) </i> </td></tr>
+<tr><td>
+ </td></tr>
+<tr><td>
+b. </td><td> <i> P(x, f(x)) </i> </td></tr>
+<tr><td>
+  </td><td>  <i> ¬ P(f(y), y) </i> </td></tr>
+<tr><td>
+ </td></tr>
+<tr><td>
+c. </td><td> <i> P(x, f(z)) </i> </td></tr>
+<tr><td>
+  </td><td>  <i> ¬ P(f(y), y) </i> </td></tr>
+<tr><td>
+</td></tr></tbody></table>
+
+</p><p>
+
+<b> 2.</b> Consider the following axioms:
+</p><ol>
+
+<li> Every child loves Santa.
+<p>
+</p></li><li> Everyone who loves Santa loves any reindeer.
+<p>
+</p></li><li> Rudolph is a reindeer, and Rudolph has a red nose.
+<p>
+</p></li><li> Anything which has a red nose is weird or is a clown.
+<p>
+</p></li><li> No reindeer is a clown.
+<p>
+</p></li><li> Scrooge does not love anything which is weird.
+<p>
+</p></li><li> (Conclusion)  Scrooge is not a child.
+</li></ol>
+
+Represent these axioms in predicate calculus; skolemize as necessary
+and convert each formula to clause form.  (Note:  `has a red nose' can
+be a single predicate.  Remember to negate the conclusion.)  Prove the
+unsatisfiability of the set of clauses by resolution.
+<p>
+</p><p>
+
+<b> 3.</b> Consider the following axioms:
+</p><ol>
+
+<li> Anyone who buys carrots by the bushel owns either a rabbit or a
+grocery store.
+<p>
+</p></li><li> Every dog chases some rabbit.
+<p>
+</p></li><li> Mary buys carrots by the bushel.
+<p>
+</p></li><li> Anyone who owns a rabbit hates anything that chases any rabbit.
+<p>
+</p></li><li> John owns a dog.
+<p>
+</p></li><li> Someone who hates something owned by another person will not date
+that person.
+<p>
+</p></li><li> (Conclusion)  If Mary does not own a grocery store, she will not date
+John.
+</li></ol>
+
+<p>
+Represent these clauses in predicate calculus, using only those predicates
+which are necessary.  For example, you need not represent `person', and
+phrases such as `who buys carrots by the bushel' may be represented by
+a single predicate.  Negate the conclusion and convert to clause form,
+skolemizing as necessary.  Prove the unsatisfiability of the resulting
+set of clauses by resolution.
+</p><p>
+</p><p>
+
+<b> 4.</b> Consider the following axioms:
+</p><ol>
+
+<li> Every Austinite who is not conservative loves some armadillo.
+<p>
+</p></li><li> Anyone who wears maroon-and-white shirts is an Aggie.
+<p>
+</p></li><li> Every Aggie loves every dog.
+<p>
+</p></li><li> Nobody who loves every dog loves any armadillo.
+<p>
+</p></li><li> Clem is an Austinite, and Clem wears maroon-and-white shirts.
+<p>
+</p></li><li> (Conclusion)  Is there a conservative Austinite?
+</li></ol>
+
+<p>
+
+<b> 5.</b> Consider the following axioms:
+</p><ol>
+
+<li> Anyone whom Mary loves is a football star.
+<p>
+</p></li><li> Any student who does not pass does not play.
+<p>
+</p></li><li> John is a student.
+<p>
+</p></li><li> Any student who does not study does not pass.
+<p>
+</p></li><li> Anyone who does not play is not a football star.
+<p>
+</p></li><li> (Conclusion)  If John does not study, then Mary does not love John.
+</li></ol>
+
+<p>
+
+<b> 6.</b> Consider the following axioms:
+</p><ol>
+
+<li> Every coyote chases some roadrunner.
+<p>
+</p></li><li> Every roadrunner who says ``beep-beep'' is smart.
+<p>
+</p></li><li> No coyote catches any smart roadrunner.
+<p>
+</p></li><li> Any coyote who chases some roadrunner but does not
+catch it is frustrated.
+<p>
+</p></li><li> (Conclusion)  If all roadrunners say ``beep-beep'', then all coyotes
+are frustrated.
+</li></ol>
+
+<p>
+
+<b> 7.</b> Consider the following axioms:
+</p><ol>
+
+<li> Anyone who rides any Harley is a rough character.
+<p>
+</p></li><li> Every biker rides [something that is] either a Harley or a BMW.
+<p>
+</p></li><li> Anyone who rides any BMW is a yuppie.
+<p>
+</p></li><li> Every yuppie is a lawyer.
+<p>
+</p></li><li> Any nice girl does not date anyone who is a rough character.
+<p>
+</p></li><li> Mary is a nice girl, and John is a biker.
+<p>
+</p></li><li> (Conclusion)  If John is not a lawyer, then Mary does not date John.
+</li></ol>
+
+<p>
+
+<b> 8.</b> Consider the following axioms:
+</p><ol>
+
+<li> Every child loves anyone who gives the child any present.
+<p>
+</p></li><li> Every child will be given some present by Santa if Santa
+can travel on Christmas eve.
+<p>
+</p></li><li> It is foggy on Christmas eve.
+<p>
+</p></li><li> Anytime it is foggy, anyone can travel if he has some
+source of light.
+<p>
+</p></li><li> Any reindeer with a red nose is a source of light.
+<p>
+</p></li><li> (Conclusion) If Santa has some reindeer with a red nose, then
+every child loves Santa.
+</li></ol>
+
+<p>
+
+<b> 9.</b> Consider the following axioms:
+</p><ol>
+
+<li> Every investor bought [something that is] stocks or bonds.
+<p>
+</p></li><li> If the Dow-Jones Average crashes, then all stocks that are
+not gold stocks fall.
+<p>
+</p></li><li> If the T-Bill interest rate rises, then all bonds fall.
+<p>
+</p></li><li> Every investor who bought something that falls is not happy.
+<p>
+</p></li><li> (Conclusion) If the Dow-Jones Average crashes and the T-Bill
+interest rate rises, then any investor who is happy bought some gold stock.
+</li></ol>
+
+<p>
+
+<b> 10.</b> Consider the following axioms:
+</p><ol>
+
+<li> Every child loves every candy.
+<p>
+</p></li><li> Anyone who loves some candy is not a nutrition fanatic.
+<p>
+</p></li><li> Anyone who eats any pumpkin is a nutrition fanatic.
+<p>
+</p></li><li> Anyone who buys any pumpkin either carves it or eats it.
+<p>
+</p></li><li> John buys a pumpkin.
+<p>
+</p></li><li> Lifesavers is a candy.
+<p>
+</p></li><li> (Conclusion) If John is a child, then John carves some pumpkin.
+</li></ol>
+
+<p>
+
+<b> 11.</b> Consider the following axioms:
+</p><ol>
+
+<li> Every tree that is an oak contains some grackle.
+<p>
+</p></li><li> If anyone walks under any tree that contains any grackle,
+then he hates every grackle.
+<p>
+</p></li><li> For every building, there is some tree that is beside it.
+<p>
+</p></li><li> Taylor Hall is a building.
+<p>
+</p></li><li> Every CS student visits Taylor Hall.
+<p>
+</p></li><li> If anyone visits any building, then he walks under every tree
+that is beside that building.
+<p>
+</p></li><li> (Conclusion) If some CS student does not hate some grackle,
+then there is some tree beside Taylor Hall that is not an oak.
+</li></ol>
+
+<p>
+
+<b> 12.</b> Consider the following axioms:
+</p><ol>
+
+<li> Every child sees some witch.
+<p>
+</p></li><li> No witch has both a black cat and a pointed hat.
+<p>
+</p></li><li> Every witch is good or bad.
+<p>
+</p></li><li> Every child who sees any good witch gets candy.
+<p>
+</p></li><li> Every witch that is bad has a black cat.
+<p>
+</p></li><li> (Conclusion) If every witch that is seen by any child has a pointed hat,
+then every child gets candy.
+</li></ol>
+
+<p>
+
+<b> 13.</b> Consider the following axioms:
+</p><ol>
+
+<li> Every boy or girl is a child.
+<p>
+</p></li><li> Every child gets a doll or a train or a lump of coal.
+<p>
+</p></li><li> No boy gets any doll.
+<p>
+</p></li><li> No child who is good gets any lump of coal.
+<p>
+</p></li><li> (Conclusion) If no child gets a train, then no boy is good.
+</li></ol>
+
+<p>
+
+<b> 14.</b> Consider the following axioms:
+</p><ol>
+
+<li> Every child who finds some [thing that is an] egg or chocolate
+bunny is happy.
+<p>
+</p></li><li> Every child who is helped finds some egg.
+<p>
+</p></li><li> Every child who is not young or who tries hard finds some
+chocolate bunny.
+<p>
+</p></li><li> (Conclusion) If every young child tries hard or is helped, then
+every child is happy.
+</li></ol>
+
+<p>
+
+<b> 15.</b> Consider the following axioms:
+</p><ol>
+
+<li> Anything that is played by any student is tennis, soccer, or chess.
+<p>
+</p></li><li> Anything that is chess is not vigorous.
+<p>
+</p></li><li> Anyone who is healthy plays something that is vigorous.
+<p>
+</p></li><li> Anyone who plays any chess does not play any soccer.
+<p>
+</p></li><li> (Conclusion) If every student is healthy, then every student
+who plays any chess plays some tennis.
+</li></ol>
+
+<p>
+
+<b> 16.</b> Consider the following axioms:
+</p><ol>
+
+<li> Every student who makes good grades is brilliant or studies.
+<p>
+</p></li><li> Every student who is a CS major has some roommate.
+[Make ``roommate'' a two-place predicate.]
+<p>
+</p></li><li> Every student who has any roommate who likes to party
+goes to Sixth Street.
+<p>
+</p></li><li> Anyone who goes to Sixth Street does not study.
+<p>
+</p></li><li> (Conclusion) If every roommate of every CS major likes to party,
+then every student who is a CS major and makes good grades is brilliant.
+</li></ol>
+
+<p>
+
+<b> 17.</b> Consider the following axioms:
+</p><ol>
+
+<li> Everyone who aces any final exam studies or is brilliant or is lucky.
+<p>
+</p></li><li> Everyone who makes an A aces some final exam.
+<p>
+</p></li><li> No CS major is lucky.
+<p>
+</p></li><li> Anyone who drinks beer does not study.
+<p>
+</p></li><li> (Conclusion) If every CS major makes an A, then every CS major
+who drinks beer is brilliant.
+</li></ol>
+
+<p>
+
+<b> 18.</b> Consider the following axioms:
+</p><ol>
+
+<li> Anyone who loves any lottery is a gambler.
+<p>
+</p></li><li> Everyone who favors the lottery proposition loves some lottery.
+<p>
+</p></li><li> Everyone favors the lottery proposition or opposes the lottery
+proposition.
+<p>
+</p></li><li> If every Baptist votes and opposes the lottery proposition, then
+the lottery proposition does not win.
+<p>
+</p></li><li> Every Baptist who is faithful is not a gambler.
+<p>
+</p></li><li> (Conclusion) If every Baptist votes and the lottery proposition wins,
+then some Baptist is not faithful.
+</li></ol>
+
+<p>
+
+<b> 19.</b> Consider the following axioms.  Hint: the predicates WHITE,
+SNOWY, HAPPY, and GETS should each have a ``time'' argument.
+</p><ol>
+
+<li> Anyone who owns any sled is happy when it is snowy.
+<p>
+</p></li><li> When it is white, it is snowy.
+<p>
+</p></li><li> If Santa is happy at Christmas, then every child who is good
+gets some toy at Christmas.
+<p>
+</p></li><li> Any child who gets a toy at any time is happy at that time.
+<p>
+</p></li><li> Santa owns a sled.
+<p>
+</p></li><li> (Conclusion) If it is white at Christmas and every child who is
+not good owns some sled, then every child is happy at Christmas.
+</li></ol>
+
+<p>
+
+<b> 20.</b> Consider the following axioms.
+</p><ol>
+
+<li> Anyone who is on Sixth Street and is not a police officer has some
+costume.
+<p>
+</p></li><li> No CS student is a police officer.
+<p>
+</p></li><li> Every costume that is good is a robot costume.
+<p>
+</p></li><li> For anyone, if they are on Sixth Street and are happy, then every
+costume they have is good or they are drunk.
+<p>
+</p></li><li> (Conclusion) If no CS student is drunk and every CS student on
+Sixth Street is happy, then every CS student on Sixth Street has some
+costume that is a robot costume.
+</li></ol>
+
+<p>
+
+<b> 21.</b> Consider the following axioms.
+</p><ol>
+
+<li> For every mall, there is some Santa who is at the mall.
+<p>
+</p></li><li> Every child who visits anywhere talks with every Santa who is at
+the place visited.  [Don't make a predicate for ``the place visited'';
+it should just be a variable.]
+<p>
+</p></li><li> Every child who is a city child visits some mall.
+<p>
+</p></li><li> Every child who is good or who talks with some Santa gets some toy.
+<p>
+</p></li><li> (Conclusion) If every child who is not a city child is good,
+then every child gets some toy.
+</li></ol>
+
+<p>
+
+<b> 22.</b> Consider the following axioms.
+</p><ol>
+
+<li> Everyone who feels warm either is drunk, or every costume they
+have is warm.
+<p>
+</p></li><li> Every costume that is warm is furry.
+<p>
+</p></li><li> Every AI student is a CS student.
+<p>
+</p></li><li> Every AI student has some robot costume.
+<p>
+</p></li><li> No robot costume is furry.
+<p>
+</p></li><li> (Conclusion) If every CS student feels warm, then every AI
+student is drunk.
+</li></ol>
+
+<p>
+
+<b> 23.</b> Consider the following axioms.
+</p><ol>
+
+<li> Every bird sleeps in some tree.
+<p>
+</p></li><li> Every loon is a bird, and every loon is aquatic.
+<p>
+</p></li><li> Every tree in which any aquatic bird sleeps is beside some lake.
+<p>
+</p></li><li> Anything that sleeps in anything that is beside any lake eats fish.
+<p>
+</p></li><li> (Conclusion) Every loon eats fish.
+</li></ol>
+
+<p>
+
+<b> 24.</b> Consider the following axioms.
+</p><ol>
+
+<li> Everyone is like him/her self.
+<p>
+
+</p></li><li> If someone is a member of a club, then they want to be a member
+     and the club will accept them.
+<p>
+
+</p></li><li> Groucho does not want to be a member of any club
+     that will accept anyone like him.
+<p>
+
+</p></li><li> (Conclusion) Groucho is not a member of any club.
+</li></ol>
+
+     
+<p>
+ 
+<b> 25.</b>``Schubert's Steamroller'', for the ambitious.  (See C. Walther,
+AAAI-84, p. 330.)
+</p><p>
+Wolves, foxes, birds, caterpillars, and snails are animals, and there
+are some of each of them.  Also there are some grains, and grains are
+plants.  Every animal either likes to eat all plants or all animals much
+smaller than itself that like to eat some plants.  Caterpillars and snails
+are much smaller than birds, which are much smaller than foxes, which
+in turn are much smaller than wolves.  Wolves do not like to eat foxes
+or grains, while birds like to eat caterpillars but not snails.  Caterpillars
+and snails like to eat some plants.  Therefore there is an animal that
+likes to eat a grain-eating animal.
+</p><p>
+</p><p>
+
+<a href="https://www.cs.utexas.edu/users/novak/resosol.html">Solutions to Selected Problems</a>
+
+</p><hr>
+<address><a href="http://www.cs.utexas.edu/users/novak/index.html">
+Gordon S. Novak Jr.</a></address>
+
+
+</body></html>
